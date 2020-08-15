@@ -40,7 +40,7 @@
                     </div>
                 </li>
             </ul>
-            <strong class="navbar-text ml-2">Funds: {{ funds }}</strong>
+            <strong class="navbar-text ml-2">Funds: {{ funds | currency}}</strong>
         </div>
     </nav>
 </template>

@@ -2,7 +2,7 @@
     <div>
         <h1>Trade or view stocks</h1>
         <hr>
-        <p>Your funds: {{ funds }}</p>
+        <p>Your funds: {{ funds | currency}}</p>
     </div>
 </template>
 

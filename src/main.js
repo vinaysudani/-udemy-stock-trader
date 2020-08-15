@@ -5,6 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import router from './router'
 import store from './store'
 
+
+Vue.filter('currency', (value) => {
+    return '$' + value.toLocaleString()
+})
+
 Vue.config.productionTip = false
 
 new Vue({
