@@ -21,9 +21,6 @@
                     activeClass="active">
                         <a class="nav-link">Stocks</a>
                 </router-link>
-
-                
-                
             </ul>
             <ul class="navbar-nav">
                 <router-link
@@ -43,6 +40,17 @@
                     </div>
                 </li>
             </ul>
+            <strong class="navbar-text ml-2">Funds: {{ funds }}</strong>
         </div>
     </nav>
 </template>
+
+<script>
+export default {
+    computed: {
+        funds() {
+            return this.$store.getters.funds
+        }
+    }
+}
+</script>

@@ -1,3 +1,17 @@
 <template>
-    <h1>Home component</h1>
+    <div>
+        <h1>Trade or view stocks</h1>
+        <hr>
+        <p>Your funds: {{ funds }}</p>
+    </div>
 </template>
+
+<script>
+export default {
+    computed: {
+        funds() {
+            return this.$store.getters.funds
+        }
+    }
+}
+</script>
