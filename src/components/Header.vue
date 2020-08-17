@@ -25,12 +25,14 @@
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="#" @click="endDay">End Day</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" @click="dropdownIsOpen = !dropdownIsOpen">
                         Save & Load
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Save data</a>
-                        <a class="dropdown-item" href="#">Load data</a>
+                    <div class="dropdown-menu"
+                        :class="{ show: dropdownIsOpen}"
+                        >
+                        <a class="dropdown-item" href="#" @click="saveData">Save data</a>
+                        <a class="dropdown-item" href="#" @click="loadData">Load data</a>
                     </div>
                 </li>
             </ul>
@@ -42,19 +44,42 @@
 <script>
 
 import { mapActions } from 'vuex'
+import axios from 'axios'
 
 export default {
+    data: function() {
+        return {
+            dropdownIsOpen: false,
+        }
+    },
     computed: {
         funds() {
             return this.$store.getters.funds
         }
     },
     methods: {
-        ...mapActions([
-            'randomizeStocks'
-        ]),
+        ...mapActions({
+            randomizeStocks: 'randomizeStocks',
+            fetchData: 'loadData'
+        }),
         endDay() {
             this.randomizeStocks()
+        },
+        saveData() {
+            const data = {
+                funds: this.$store.getters.funds,
+                stockPortfolio: this.$store.getters.stockPortfolio,
+                stocks: this.$store.getters.stocks
+            }
+            axios.put('https://udemy-stock-trader-272e1.firebaseio.com/data.json', data)
+                .then(() => {
+
+                })
+            this.dropdownIsOpen = false
+        },
+        loadData() {
+            this.fetchData()
+            this.dropdownIsOpen = false
         }
     }
 }
